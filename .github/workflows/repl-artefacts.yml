@@ -22,7 +22,7 @@ jobs:
     if: >-
       ${{ github.event.pull_request.head.repo.full_name == 'rollup/rollup' ||
           (github.event.action == 'labeled' && github.event.label.name == 'x⁸ ⚙️ build repl artefacts') }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Upload
     steps:
       - name: Checkout Commit
@@ -48,8 +48,8 @@ jobs:
             ~/.cargo/git/db/
             .cargo-cache
             rust/target/
-          key: wasm-cargo-ubuntu-latest-${{ hashFiles('rust/Cargo.lock') }}
-          restore-keys: wasm-cargo-ubuntu-latest
+          key: wasm-cargo-ubuntu-24.04-${{ hashFiles('rust/Cargo.lock') }}
+          restore-keys: wasm-cargo-ubuntu-24.04
       - name: Setup Node
         uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
@@ -98,8 +98,8 @@ jobs:
         id: findComment
         with:
           issue-number: ${{ github.event.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: 'Thank you for your contribution!'
+          comment-author: github-actions[bot]
+          body-includes: Thank you for your contribution!
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
         id: createInitialComment
